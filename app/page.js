@@ -66,7 +66,7 @@ export default function Component() {
   A comprehensive project built with React and Next.js, showcasing
   modern web development practices and responsive design principles.
 </p>
-          <Link href="#">
+          <Link href="http://localhost:3000/projects/trivia">
         <Button className="bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 
 hover:from-pink-600 hover:via-purple-500 hover:to-violet-600
 hover:scale-110 hover:shadow-xl hover:shadow-purple-500/50 
