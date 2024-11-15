@@ -14,8 +14,8 @@ export default function Component() {
    <div className="bg-gradient-to-br from-slate-800 via-gray-700 to-zinc-800 text-white overflow-hidden">
       <div className="h-full max-w-4xl mx-auto px-6 py-8 flex flex-col justify-between">
         {/* About Section */}
-        <section className="mt-[-20px] text-center space-y-6">
-          <h1 className="text-3xl font-bold text-center text-white p-6 transition-all duration-300 rounded-lg shadow-lg transform hover:scale-105">
+        <section className="mt-[-30px] text-center space-y-6">
+          <h1 className="text-3xl font-bold text-center text-white p-4 transition-all duration-300 rounded-lg shadow-lg transform hover:scale-105">
             About this project
           </h1>
 <div 
@@ -92,39 +92,42 @@ mt-8">
         icon: FileText,
         title: "Todo List", 
         description: "Track your daily tasks",
-        gradient: "from-pink-500 to-purple-500"
+        gradient: "from-pink-500 to-purple-500",
+        link: "https://todoai-silk.vercel.app/?__vercel_draft=1" // Add link URL here
       },
       {
         icon: StickyNote,
         title: "Notes",
         description: "Organize your thoughts", 
-        gradient: "from-orange-500 to-red-500"
+        gradient: "from-orange-500 to-red-500",
+        link: "https://noteai-site.vercel.app/" // Add link URL here
       },
  
     ].map((tool, index) => (
-      <div
-        key={index}
-        className="transform-style-3d transition-all duration-500 ease-out hover:scale-110 hover:rotate-y-12 flex justify-center items-center"
-        onMouseEnter={() => setHoveredCard(index)}
-        onMouseLeave={() => setHoveredCard(null)}
-      >
-        <Card className="h-[300px] w-[250px] bg-white/10 backdrop-blur-xl border-2 border-white/20 shadow-2xl hover:bg-white/15 transform transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
-          <CardContent className="flex flex-col items-center justify-center gap-4 p-8 relative overflow-hidden h-full">
-            <div className={`p-4 bg-gradient-to-r ${tool.gradient} rounded-2xl transition-all duration-500 hover:scale-125 hover:rotate-12 shadow-lg`}>
-              <tool.icon className="w-8 h-8 text-white animate-bounce" />
-            </div>
-            <div className="text-center z-10 transition-all duration-300 group">
-              <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-teal-300 mb-3 group-hover:scale-110">{tool.title}</h3>
-              <p className="text-emerald-100 text-lg font-medium group-hover:text-white">
-                {tool.description}
-              </p>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-gradient-to-r from-teal-500/30 to-emerald-500/30 blur-3xl rounded-full animate-pulse" />
-            <div className="absolute -top-20 -left-20 w-48 h-48 bg-gradient-to-r from-purple-500/30 to-pink-500/30 blur-3xl rounded-full animate-pulse" />
-          </CardContent>
-        </Card>
-      </div>
+      <Link href={tool.link} key={index}>
+        <div
+          className="transform-style-3d transition-all duration-500 ease-out hover:scale-110 hover:rotate-y-12 flex justify-center items-center"
+          onMouseEnter={() => setHoveredCard(index)}
+          onMouseLeave={() => setHoveredCard(null)}
+        >
+          <Card className="h-[300px] w-[250px] bg-white/10 backdrop-blur-xl border-2 border-white/20 shadow-2xl hover:bg-white/15 transform transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
+            <CardContent className="flex flex-col items-center justify-center gap-4 p-8 relative overflow-hidden h-full">
+              <div className={`p-4 bg-gradient-to-r ${tool.gradient} rounded-2xl transition-all duration-500 hover:scale-125 hover:rotate-12 shadow-lg`}>
+                <tool.icon className="w-8 h-8 text-white animate-bounce" />
+              </div>
+              <div className="text-center z-10 transition-all duration-300 group">
+                <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-teal-300 mb-3 group-hover:scale-110">{tool.title}</h3>
+                <p className="text-emerald-100 text-lg font-medium group-hover:text-white">
+                  {tool.description}
+                </p>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-gradient-to-r from-teal-500/30 to-emerald-500/30 blur-3xl rounded-full animate-pulse" />
+              <div className="absolute -top-20 -left-20 w-48 h-48 bg-gradient-to-r from-purple-500/30 to-pink-500/30 blur-3xl rounded-full animate-pulse" />
+            </CardContent>
+          </Card>
+        </div>
+      </Link>
     ))}
   </div>
 </section>
@@ -154,23 +157,26 @@ mt-8">
           {
             name: "GitHub", 
             icon: "M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22",
-            href: "https://github.com/yourusername",
+            href: "https://github.com/codewithpanda28",
           },
           {
             name: "LinkedIn",
             icon: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0z",
-            href: "https://linkedin.com/in/yourusername",
+            href: "https://linkedin.com/in/codewithpanda28",
           },
           {
             name: "Portfolio",
             icon: "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
             href: "/portfolio",
           },
-          {
-            name: "Email",
-            icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-            href: "mailto:your.email@example.com",
-          },
+       {
+  name: "Email",
+  icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+  href: "mailto:codewithpanda28@gmail.com?subject=Message from website&body=Hello,",
+  onClick: () => {
+    window.location.href = "mailto:codewithpanda28@gmail.com?subject=Message from website&body=Hello,";
+  }
+}
         ].map((item, index) => (
           <Link
             key={index}
