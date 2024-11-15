@@ -2,24 +2,21 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Database, FileText, StickyNoteIcon as Note } from 'lucide-react'
+import { Database, FileText, StickyNote } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [hoveredCard, setHoveredCard] = useState(null)
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-white">
       <div className="max-w-2xl mx-auto px-4 py-8 space-y-16">
         {/* About Section */}
         <section className="text-center space-y-6">
           <h1 className="text-2xl font-bold">About this project</h1>
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="w-32 h-32 mx-auto"
-          >
+          <div className="w-32 h-32 mx-auto">
             <Image
               src="/placeholder.svg"
               alt="React Logo"
@@ -27,13 +24,13 @@ export default function Component() {
               height={128}
               className="animate-spin-slow"
             />
-          </motion.div>
+          </div>
           <p className="text-slate-300 leading-relaxed">
             A comprehensive project built with React and Next.js, showcasing modern web development practices
             and responsive design principles. This project demonstrates the use of various tools and technologies
             in creating a seamless user experience.
           </p>
-          <Button className="bg-blue-600 hover:bg-blue-700">
+          <Button className="bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
             View Project
           </Button>
         </section>
@@ -42,56 +39,31 @@ export default function Component() {
         <section className="space-y-6">
           <h2 className="text-2xl font-bold">Tools</h2>
           <div className="grid gap-4">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Card className="bg-slate-800/50 border-slate-700">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="p-2 bg-blue-600 rounded-lg">
-                    <FileText className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Todo List</h3>
-                    <p className="text-sm text-slate-300">Track your daily tasks</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Card className="bg-slate-800/50 border-slate-700">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="p-2 bg-blue-600 rounded-lg">
-                    <Note className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Notes</h3>
-                    <p className="text-sm text-slate-300">Organize your thoughts</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Card className="bg-slate-800/50 border-slate-700">
-                <CardContent className="flex items-center gap-4 p-4">
-                  <div className="p-2 bg-blue-600 rounded-lg">
-                    <Database className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Database Explorer</h3>
-                    <p className="text-sm text-slate-300">Manage your data</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+            {[
+              { icon: FileText, title: 'Todo List', description: 'Track your daily tasks' },
+              { icon: StickyNote, title: 'Notes', description: 'Organize your thoughts' },
+              { icon: Database, title: 'Database Explorer', description: 'Manage your data' }
+            ].map((tool, index) => (
+              <div
+                key={index}
+                className="transition-transform duration-200 ease-in-out"
+                style={{ transform: hoveredCard === index ? 'scale(1.02)' : 'scale(1)' }}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardContent className="flex items-center gap-4 p-4">
+                    <div className="p-2 bg-blue-600 rounded-lg">
+                      <tool.icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">{tool.title}</h3>
+                      <p className="text-sm text-slate-300">{tool.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -115,23 +87,13 @@ export default function Component() {
                   />
                 </svg>
               </div>
-              <p className="text-slate-300">Get free to contact me. You can write me anytime</p>
+              <p className="text-slate-300">Feel free to contact me. You can reach out anytime</p>
               <div className="flex flex-wrap gap-2 justify-center">
-                <Button variant="outline" className="border-slate-700 hover:bg-slate-800">
-                  Resume
-                </Button>
-                <Button variant="outline" className="border-slate-700 hover:bg-slate-800">
-                  GitHub
-                </Button>
-                <Button variant="outline" className="border-slate-700 hover:bg-slate-800">
-                  LinkedIn
-                </Button>
-                <Button variant="outline" className="border-slate-700 hover:bg-slate-800">
-                  Portfolio
-                </Button>
-                <Button variant="outline" className="border-slate-700 hover:bg-slate-800">
-                  Email
-                </Button>
+                {['Resume', 'GitHub', 'LinkedIn', 'Portfolio', 'Email'].map((item, index) => (
+                  <Button key={index} variant="outline" className="border-slate-700 hover:text-white hover:bg-slate-800 transition-colors duration-200">
+                    {item}
+                  </Button>
+                ))}
               </div>
             </CardContent>
           </Card>
